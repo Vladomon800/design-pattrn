@@ -5,25 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using MyLibrary;
 
-
 namespace MyConsole
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
-            Duck duck1 = new RedheadDuck();
-            Duck duck2 = new MallardDuck();
-
-            Duck[] mas = new Duck[] { duck1, duck2 };
-
-            for (int i = 0; i < mas.Length; i++)
+            Duck[] ducks = new Duck[]
             {
-                Console.WriteLine(mas[i].Swim());
-                Console.WriteLine(mas[i].Display());
-                Console.WriteLine(mas[i].Quack());
+                new MallardDuck(),
+                new RedHeadDuck(),
+                new RubberDuck(),
+                new DecoyDuck()
+            };
+            foreach (Duck duck in ducks)
+            {
+                Console.WriteLine(duck.Swim());
+                Console.WriteLine(duck.Display());
+                if (duck is IFlyable)
+                {
+                    Console.WriteLine((duck as IFlyable).fly());
+                }
+                if (duck is IQuackable)
+                {
+                    Console.WriteLine((duck as IQuackable).quack());
+                }
             }
-
             Console.ReadKey();
         }
     }
