@@ -7,30 +7,33 @@ using MyLibrary;
 
 namespace MyConsole
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            Duck[] ducks = new Duck[]
+            RedHeadDuck readheadDuck = new RedHeadDuck();
+            Duck mallardDuck = new MallardDuck();
+            DecoyDuck decoyDuck = new DecoyDuck();
+            RubberDuck rubberDuck = new RubberDuck();
+
+            Duck[] ducks = new Duck[] { readheadDuck, mallardDuck, decoyDuck, rubberDuck };
+
+            foreach (var x in ducks)
             {
-                new MallardDuck(),
-                new RedHeadDuck(),
-                new RubberDuck(),
-                new DecoyDuck()
-            };
-            foreach (Duck duck in ducks)
-            {
-                Console.WriteLine(duck.Swim());
-                Console.WriteLine(duck.Display());
-                if (duck is IFlyable)
-                {
-                    Console.WriteLine((duck as IFlyable).fly());
-                }
-                if (duck is IQuackable)
-                {
-                    Console.WriteLine((duck as IQuackable).quack());
-                }
+                Console.WriteLine(x.Swim());
+                Console.WriteLine(x.Display());
+                Console.WriteLine(x.quack());
+                Console.WriteLine(x.fly());
             }
+
+            mallardDuck.QQuackBehavior = new Squeak();
+            Console.WriteLine(mallardDuck.Display());
+            Console.WriteLine(mallardDuck.quack());
+
+            mallardDuck.FFlyBehavior = new FlyNoWay();
+            Console.WriteLine(mallardDuck.Display());
+            Console.WriteLine(mallardDuck.fly());
+
             Console.ReadKey();
         }
     }
